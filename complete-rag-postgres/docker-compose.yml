@@ -5,6 +5,8 @@ services:
       POSTGRES_USER: rag
       POSTGRES_PASSWORD: rag123
       POSTGRES_DB: rag
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     deploy:
       resources:
         limits:

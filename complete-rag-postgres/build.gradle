@@ -12,6 +12,7 @@ repositories {
 dependencies {
     implementation 'dev.langchain4j:langchain4j:0.35.0'
     implementation 'dev.langchain4j:langchain4j-ollama:0.35.0'
+    implementation 'dev.langchain4j:langchain4j-pgvector:0.35.0'
     implementation 'org.slf4j:slf4j-reload4j:2.0.13'
     implementation 'dev.langchain4j:langchain4j-embeddings-all-minilm-l6-v2:0.35.0'
     testImplementation platform('org.junit:junit-bom:5.10.0')

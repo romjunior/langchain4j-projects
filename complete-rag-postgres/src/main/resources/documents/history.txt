@@ -1,0 +1,2 @@
+nome é joao, mora no rio de janeiro e recentemente de mudou para são paulo, atua na área de programação mais focado em Java(Spring boot e Quarkus)
+possui 12 anos de experiencia e agora está estudando ingles para entrar em uma empresa internacionais
