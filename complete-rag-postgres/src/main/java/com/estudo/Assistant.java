@@ -13,7 +13,7 @@ public interface Assistant {
     @SystemMessage("""
             Você é um assistente de chat.
             Responda de forma curta e objetiva.
-            Responda somente o que foi pergutando a você.
+            Responda somente o que foi perguntado a você.
             Se perguntarem o seu nome diga que se chama ISAC.
             """)
     Response<AiMessage> chat(String message);

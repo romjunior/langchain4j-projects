@@ -1,9 +1,5 @@
 package com.estudo;
 
-import dev.langchain4j.data.document.Document;
-import dev.langchain4j.data.document.DocumentParser;
-import dev.langchain4j.data.document.loader.FileSystemDocumentLoader;
-import dev.langchain4j.data.document.parser.TextDocumentParser;
 import dev.langchain4j.internal.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +22,7 @@ public class Chatbot {
 
         String input = null;
 
-        final var ragStore = RagStore.create("localhost",
+        final var ragStore = RagStore.of("localhost",
                 5432,
                 "rag",
                 "rag",
@@ -35,15 +31,9 @@ public class Chatbot {
                 384
         );
 
-        DocumentParser documentParser = new TextDocumentParser();
+        DocumentIngestion.ingestDocument(toPath("documents/history.txt"), ragStore);
 
-        Document document = FileSystemDocumentLoader.loadDocument(toPath("documents/history.txt"), documentParser);
-
-        final var documentIngestion = new DocumentIngestion();
-        documentIngestion.ingestDocument(document);
-
-
-        final var assistant = Assistant.create(baseUrl, model, DocumentRetriever.retriever());
+        final var assistant = Assistant.create(baseUrl, model, DocumentRetriever.retriever(ragStore));
 
         System.out.println("=======ISAC==========");
 

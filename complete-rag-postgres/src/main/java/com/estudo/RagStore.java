@@ -8,20 +8,21 @@ import dev.langchain4j.store.embedding.pgvector.PgVectorEmbeddingStore;
 
 public class RagStore {
 
-    private static EmbeddingStore<TextSegment> embeddingStore;
+    private EmbeddingStore<TextSegment> embeddingStore;
 
-    private static EmbeddingModel embeddingModel;
+    private EmbeddingModel embeddingModel;
 
-    static EmbeddingStore<TextSegment> create(
+    private RagStore(
             String host,
             int port,
             String database,
             String user,
             String password,
             String table,
-            int dimension
+            int dimension,
+            EmbeddingModel embeddingModel
     ) {
-        embeddingStore = PgVectorEmbeddingStore.builder()
+        this.embeddingStore = PgVectorEmbeddingStore.builder()
                 .host(host)
                 .port(port)
                 .database(database)
@@ -30,15 +31,26 @@ public class RagStore {
                 .table(table)
                 .dimension(dimension)
                 .build();
-        embeddingModel = new AllMiniLmL6V2EmbeddingModel();
+        this.embeddingModel = embeddingModel;
+    }
+
+    public static RagStore of(
+            String host,
+            int port,
+            String database,
+            String user,
+            String password,
+            String table,
+            int dimension
+    ) {
+        return new RagStore(host, port, database, user, password, table, dimension, new AllMiniLmL6V2EmbeddingModel());
+    }
+
+    EmbeddingStore<TextSegment> getStore() {
         return embeddingStore;
     }
 
-    static EmbeddingStore<TextSegment> getStore() {
-        return embeddingStore;
-    }
-
-    static EmbeddingModel getEmbeddings() {
+    EmbeddingModel getEmbeddings() {
         return embeddingModel;
     }
 
