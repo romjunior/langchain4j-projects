@@ -8,9 +8,9 @@ import dev.langchain4j.store.embedding.pgvector.PgVectorEmbeddingStore;
 
 public class RagStore {
 
-    private EmbeddingStore<TextSegment> embeddingStore;
+    private final EmbeddingStore<TextSegment> embeddingStore;
 
-    private EmbeddingModel embeddingModel;
+    private final EmbeddingModel embeddingModel;
 
     private RagStore(
             String host,

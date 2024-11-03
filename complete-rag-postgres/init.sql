@@ -18,3 +18,16 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.contents
     OWNER to rag;
 
+CREATE TABLE IF NOT EXISTS public.chats
+(
+    chat_id uuid NOT NULL,
+    content text,
+    created_at timestamp without time zone NOT NULL DEFAULT now(),
+    CONSTRAINT chats_pkey PRIMARY KEY (chat_id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.chats
+    OWNER to rag;
+

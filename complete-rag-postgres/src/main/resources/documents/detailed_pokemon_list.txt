@@ -1,0 +1,62 @@
+Nome: Pikachu
+Ataques: Thunder Shock, Quick Attack
+Defesa: 40
+Tipo: Elétrico
+Fraco contra: Terra
+História: Pikachu é um pequeno Pokémon amarelo conhecido por sua simpatia e energia elétrica. Ele é ágil e curioso, frequentemente visto explorando seu ambiente. Suas bochechas carregam eletricidade, que ele libera em ataques potentes.
+Vantagens: Derrota facilmente Pokémons do tipo Água e Voador.
+Desvantagens: Tem dificuldades contra Pokémons do tipo Terra, que não são afetados por ataques elétricos.
+
+Nome: Charizard
+Ataques: Flamethrower, Dragon Claw
+Defesa: 78
+Tipo: Fogo/Voador
+Fraco contra: Água, Elétrico, Pedra
+História: Charizard é um poderoso Pokémon que exala chamas intensas. Seu corpo alado o permite voar em alta velocidade, e seu fogo é forte o suficiente para derreter pedras. É conhecido por sua natureza feroz e leal aos treinadores experientes.
+Vantagens: É forte contra Pokémons do tipo Planta, Inseto e Gelo.
+Desvantagens: Tem fraquezas contra Água, Elétrico e Pedra devido à sua natureza de fogo e voador.
+
+Nome: Bulbasaur
+Ataques: Vine Whip, Razor Leaf
+Defesa: 49
+Tipo: Planta/Venenoso
+Fraco contra: Fogo, Gelo, Psíquico, Voador
+História: Bulbasaur possui uma semente nas costas que cresce conforme ele evolui. Ele é dócil, mas muito resistente, usando vinhas e folhas afiadas para se defender. É comum vê-lo em áreas de floresta, onde ele absorve a energia do sol para fortalecer seu ataque.
+Vantagens: É eficaz contra Pokémons de tipo Água, Terra e Pedra.
+Desvantagens: Sofre contra Fogo, Voador e Psíquico, que podem explorar suas fraquezas.
+
+Nome: Squirtle
+Ataques: Water Gun, Bite
+Defesa: 65
+Tipo: Água
+Fraco contra: Elétrico, Planta
+História: Squirtle é um Pokémon aquático que possui uma carapaça dura para se proteger. Ele é brincalhão e habilidoso em manipular a água, usando-a tanto para se defender quanto para atacar. Sua personalidade é amigável e ele é frequentemente visto perto de corpos d'água.
+Vantagens: Derrota facilmente Pokémons de Fogo, Pedra e Terra.
+Desvantagens: Tem dificuldades contra Elétrico e Planta, que podem reduzir sua eficácia.
+
+Nome: Jigglypuff
+Ataques: Pound, Disarming Voice
+Defesa: 20
+Tipo: Normal/Fada
+Fraco contra: Aço, Veneno
+História: Jigglypuff é conhecido por seu canto suave que faz os oponentes adormecerem. Ele é fofo e redondo, com uma aparência amigável, mas usa seu charme para desarmar os adversários. É comum ele ser encontrado em áreas de pradaria.
+Vantagens: É forte contra Dragão, Lutador e Sombrio devido ao tipo Fada.
+Desvantagens: Tem fraqueza contra tipos Aço e Veneno, que podem superar sua resistência.
+
+Nome: Gengar
+Ataques: Shadow Ball, Sludge Bomb
+Defesa: 60
+Tipo: Fantasma/Venenoso
+Fraco contra: Psíquico, Fantasma, Terra
+História: Gengar é um Pokémon de aparência sombria, muitas vezes associado a lendas de fantasmas. Ele tem um sorriso sinistro e é muito astuto, aproveitando-se das sombras para se esconder e atacar. Gengar é um Pokémon bastante temido.
+Vantagens: Derrota facilmente Lutador e Psíquico com ataques fantasmas.
+Desvantagens: Vulnerável contra Psíquico e Terra, que podem explorar suas fraquezas.
+
+Nome: Machamp
+Ataques: Karate Chop, Cross Chop
+Defesa: 80
+Tipo: Lutador
+Fraco contra: Psíquico, Voador, Fada
+História: Machamp é musculoso e muito forte, capaz de derrubar oponentes com seus golpes rápidos e potentes. Ele é conhecido por sua dedicação e disciplina em treinos. Machamp vive para lutar e aperfeiçoar suas habilidades.
+Vantagens: Vantajoso contra tipos Normal, Gelo e Aço.
+Desvantagens: Sofre contra Voador, Psíquico e Fada, que podem explorar suas fraquezas.

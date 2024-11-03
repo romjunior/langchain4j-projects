@@ -13,9 +13,12 @@ import java.nio.file.Path;
 import java.util.List;
 
 
-public class DocumentIngestion {
+public final class DocumentIngestion {
 
     private static final Logger logger = LoggerFactory.getLogger(DocumentIngestion.class);
+
+    private DocumentIngestion() {
+    }
 
     public static void ingestDocument(Path path, RagStore ragStore) {
         final var documents =  getDocuments(path);
