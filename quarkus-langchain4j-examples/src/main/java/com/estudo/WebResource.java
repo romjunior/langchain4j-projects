@@ -16,12 +16,16 @@ public class WebResource {
 
     private final ChatMemory chatMemory;
 
+    private final AiTools aiTools;
+
     public WebResource(MyIAService myIAService,
                        SentimentAnalysis sentimentAnalysis,
-                       ChatMemory chatMemory) {
+                       ChatMemory chatMemory,
+                       AiTools aiTools) {
         this.myIAService = myIAService;
         this.sentimentAnalysis = sentimentAnalysis;
         this.chatMemory = chatMemory;
+        this.aiTools = aiTools;
     }
 
     @POST
@@ -42,5 +46,11 @@ public class WebResource {
     @Path("/chat-memory/{id}")
     public String chatMemory(@PathParam("id") String id, String body) {
         return chatMemory.chat(id, body);
+    }
+
+    @POST
+    @Path("/ai-tools")
+    public String aiTools(String body) {
+        return aiTools.chat(body);
     }
 }
