@@ -1,4 +1,4 @@
-package com.estudo;
+package com.estudo.structuredoutputs;
 
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;

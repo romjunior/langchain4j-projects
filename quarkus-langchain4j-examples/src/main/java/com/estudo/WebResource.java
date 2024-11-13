@@ -1,5 +1,8 @@
 package com.estudo;
 
+import com.estudo.guardrails.GuardRailExampleService;
+import com.estudo.structuredoutputs.SentimentAnalysis;
+import com.estudo.tools.AiTools;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -18,14 +21,18 @@ public class WebResource {
 
     private final AiTools aiTools;
 
+    private final GuardRailExampleService guardRailExampleService;
+
     public WebResource(MyIAService myIAService,
                        SentimentAnalysis sentimentAnalysis,
                        ChatMemory chatMemory,
-                       AiTools aiTools) {
+                       AiTools aiTools,
+                       GuardRailExampleService guardRailExampleService) {
         this.myIAService = myIAService;
         this.sentimentAnalysis = sentimentAnalysis;
         this.chatMemory = chatMemory;
         this.aiTools = aiTools;
+        this.guardRailExampleService = guardRailExampleService;
     }
 
     @POST
@@ -52,5 +59,11 @@ public class WebResource {
     @Path("/ai-tools")
     public String aiTools(String body) {
         return aiTools.chat(body);
+    }
+
+    @POST
+    @Path("/guardrail")
+    public String guardRail(String body) {
+        return guardRailExampleService.chat(body);
     }
 }

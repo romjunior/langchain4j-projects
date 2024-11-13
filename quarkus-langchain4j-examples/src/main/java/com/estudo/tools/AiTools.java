@@ -1,4 +1,4 @@
-package com.estudo;
+package com.estudo.tools;
 
 
 import dev.langchain4j.service.SystemMessage;

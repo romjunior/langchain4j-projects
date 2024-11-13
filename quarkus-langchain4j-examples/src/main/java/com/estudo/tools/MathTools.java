@@ -1,4 +1,4 @@
-package com.estudo;
+package com.estudo.tools;
 
 import dev.langchain4j.agent.tool.Tool;
 import jakarta.enterprise.context.RequestScoped;
