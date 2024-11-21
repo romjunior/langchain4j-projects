@@ -25,6 +25,7 @@ public class ParkingLotMemoryManager {
 
     public void set(String memoryId, String messages) {
         Log.info("set memory Duration minutes=" + memoryTime.toMinutes() + " convert seconds=" + memoryTime.toSeconds());
+        Log.info("messages" + messages);
         valueCommands.setex(PREFIX + memoryId, memoryTime.getSeconds(), messages);
     }
 

@@ -1,9 +1,7 @@
 package com.estudo;
 
 import com.estudo.llm.Assistant;
-import com.estudo.memory.ParkingLotMemoryManager;
 import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
