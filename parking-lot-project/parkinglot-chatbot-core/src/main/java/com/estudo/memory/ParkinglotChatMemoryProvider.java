@@ -7,7 +7,6 @@ import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import jakarta.enterprise.context.RequestScoped;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-//não é necessário!
 @RequestScoped
 public class ParkinglotChatMemoryProvider implements ChatMemoryProvider {
 
