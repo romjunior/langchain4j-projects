@@ -1,6 +1,5 @@
 package com.estudo.resource;
 
-import com.estudo.repository.price.Price;
 import com.estudo.service.PriceService;
 import io.quarkus.logging.Log;
 import jakarta.ws.rs.DELETE;
