@@ -1,8 +1,8 @@
 package com.estudo.tools;
 
-import com.estudo.client.ParkingSpaceClient;
-import com.estudo.client.ParkingSpaceDTO;
-import com.estudo.client.ParkingSpaceStatus;
+import com.estudo.client.parkingspace.ParkingSpaceClient;
+import com.estudo.client.parkingspace.ParkingSpaceDTO;
+import com.estudo.client.parkingspace.ParkingSpaceStatus;
 import dev.langchain4j.agent.tool.Tool;
 import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.enterprise.context.ApplicationScoped;

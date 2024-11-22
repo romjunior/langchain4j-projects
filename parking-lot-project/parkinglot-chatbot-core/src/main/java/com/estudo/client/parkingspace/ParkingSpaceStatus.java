@@ -1,4 +1,4 @@
-package com.estudo.client;
+package com.estudo.client.parkingspace;
 
 public enum ParkingSpaceStatus {
     AVAILABLE, OCUPIED, DISABLED

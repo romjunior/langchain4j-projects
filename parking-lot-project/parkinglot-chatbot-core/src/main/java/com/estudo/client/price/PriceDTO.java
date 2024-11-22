@@ -1,4 +1,4 @@
-package com.estudo.client;
+package com.estudo.client.price;
 
 import java.math.BigDecimal;
 

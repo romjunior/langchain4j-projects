@@ -1,7 +1,7 @@
 package com.estudo.tools;
 
-import com.estudo.client.PriceClient;
-import com.estudo.client.PriceDTO;
+import com.estudo.client.price.PriceClient;
+import com.estudo.client.price.PriceDTO;
 import dev.langchain4j.agent.tool.Tool;
 import io.quarkus.logging.Log;
 import io.smallrye.common.annotation.RunOnVirtualThread;
