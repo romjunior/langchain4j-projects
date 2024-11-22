@@ -6,12 +6,12 @@ import jakarta.persistence.Id;
 @Entity(name = "PARKING_SPACE")
 public class ParkingSpace {
     @Id String code;
-    Status status;
+    ParkingSpaceStatus status;
 
     public ParkingSpace() {
     }
 
-    public ParkingSpace(String code, Status status) {
+    public ParkingSpace(String code, ParkingSpaceStatus status) {
         this.code = code;
         this.status = status;
     }
@@ -24,11 +24,11 @@ public class ParkingSpace {
         this.code = code;
     }
 
-    public Status getStatus() {
+    public ParkingSpaceStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(ParkingSpaceStatus status) {
         this.status = status;
     }
 }
