@@ -2,6 +2,7 @@ package com.estudo.resource;
 
 import com.estudo.repository.price.Price;
 import com.estudo.service.PriceService;
+import io.quarkus.logging.Log;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -26,19 +27,24 @@ public class PriceResource {
     @GET
     @ResponseStatus(OK)
     public List<PriceDTO> getPrices() {
+        Log.info("M=getPrices");
         return priceService.getAllPrices();
     }
 
     @POST
     @ResponseStatus(CREATED)
     public void createPrice(InsertPriceDTO insertPriceDTO) {
+        Log.info("M=createPrice");
         priceService.createPrice(insertPriceDTO);
+        Log.info("M=createPrice success");
     }
 
     @DELETE
     @Path("/{id}")
     @ResponseStatus(NO_CONTENT)
     public void deletePrice(@PathParam("id") UUID id) {
+        Log.info("M=deletePrice");
         priceService.deletePrice(id);
+        Log.info("M=deletePrice success");
     }
 }
