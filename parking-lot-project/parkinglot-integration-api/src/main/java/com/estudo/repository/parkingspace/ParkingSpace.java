@@ -1,4 +1,4 @@
-package com.estudo.entity;
+package com.estudo.repository.parkingspace;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
