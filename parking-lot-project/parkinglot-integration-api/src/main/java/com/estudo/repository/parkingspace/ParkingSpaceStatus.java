@@ -1,5 +1,5 @@
 package com.estudo.repository.parkingspace;
 
-public enum Status {
+public enum ParkingSpaceStatus {
     AVAILABLE, OCUPIED, DISABLED
 }

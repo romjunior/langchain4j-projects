@@ -8,9 +8,7 @@ import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 
 @ApplicationScoped
 public class PricingService {

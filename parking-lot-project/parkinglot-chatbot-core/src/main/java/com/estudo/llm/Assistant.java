@@ -1,5 +1,6 @@
 package com.estudo.llm;
 
+import com.estudo.tools.ParkingSpaceService;
 import com.estudo.tools.PricingService;
 import dev.langchain4j.service.MemoryId;
 import dev.langchain4j.service.SystemMessage;
@@ -9,7 +10,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 @RegisterAiService(tools = {
-        PricingService.class
+        PricingService.class,
+        ParkingSpaceService.class
 })
 public interface Assistant {
 
@@ -19,6 +21,7 @@ public interface Assistant {
             Você gerencia esse estacionamento consultando as vagas disponiveis, cobrando os clientes pelo tempo em que eles ficam nelas.
             
             Você deve consultar o preço da primeira hora e o preço das demais horas do estacionamento, você não deve colocar na resposta o json retornado para você.
+            Você deve consultar as vagas disponíveis do estacionamento, você não deve colocar na resposta o json retornado para você.
             
             Quando o cliente se comprimentar, você vai se apresentar e vai falar sobre as vagas que temos e os valores.
             
