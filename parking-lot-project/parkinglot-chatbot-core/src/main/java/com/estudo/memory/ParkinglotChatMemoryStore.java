@@ -14,6 +14,7 @@ import static dev.langchain4j.data.message.ChatMessageSerializer.messagesToJson;
 @RequestScoped
 public class ParkinglotChatMemoryStore implements ChatMemoryStore {
 
+
     public static final String MEMORY_ID_MUST_BE_A_STRING = "memoryId must be a String";
     private final ParkingLotMemoryManager parkingLotMemoryManager;
 

@@ -13,8 +13,8 @@ services:
       POSTGRES_USER: parkinglot
       POSTGRES_PASSWORD: parkinglot123
       POSTGRES_DB: parkinglot
-#    volumes:
-#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     deploy:
       resources:
         limits:
