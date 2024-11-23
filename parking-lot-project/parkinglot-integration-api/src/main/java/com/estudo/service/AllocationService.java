@@ -35,4 +35,8 @@ public class AllocationService {
             return false;
         }
     }
+
+    public Allocation getAllocationByCarPlate(String carPlate) {
+        return allocationRepository.findAllocationByCarPlace(carPlate);
+    }
 }

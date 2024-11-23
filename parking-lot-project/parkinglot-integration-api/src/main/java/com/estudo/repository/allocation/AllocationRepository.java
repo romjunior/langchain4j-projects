@@ -7,4 +7,8 @@ import java.util.UUID;
 
 @ApplicationScoped
 public class AllocationRepository implements PanacheRepositoryBase<Allocation, UUID> {
+
+    public Allocation findAllocationByCarPlace(String carPlate) {
+        return find("carPlate", carPlate).firstResult();
+    }
 }
