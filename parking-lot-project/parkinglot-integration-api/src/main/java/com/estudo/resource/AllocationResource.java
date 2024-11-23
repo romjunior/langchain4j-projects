@@ -2,10 +2,13 @@ package com.estudo.resource;
 
 import com.estudo.service.AllocationService;
 import io.quarkus.logging.Log;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import static org.jboss.resteasy.reactive.RestResponse.StatusCode.CREATED;
@@ -20,6 +23,8 @@ public class AllocationResource {
     }
 
     @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response createAllocation(AllocationDTO allocationDTO) {
         Log.info(String.format("M=createAllocation alocation=%s", allocationDTO));
         if(this.allocationService.createAllocation(allocationDTO)) {
@@ -33,6 +38,7 @@ public class AllocationResource {
 
     @GET
     @Path("/car-plate/{carPlate}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getAllocationByCarPlate(@PathParam("carPlate") String carPlate) {
         Log.info(String.format("M=getAllocationByCarPlate carPlate=%s", carPlate));
         final var allocation = this.allocationService.getAllocationByCarPlate(carPlate);

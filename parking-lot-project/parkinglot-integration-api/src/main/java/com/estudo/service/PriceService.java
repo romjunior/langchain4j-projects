@@ -7,7 +7,9 @@ import com.estudo.resource.PriceDTO;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.transaction.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RequestScoped
@@ -32,6 +34,21 @@ public class PriceService {
                         price.getDescription(),
                         price.getValue()))
                 .toList();
+    }
+
+    public Map<String, BigDecimal> getPricesForCalculation() {
+        final var prices = getAllPrices();
+        final var firstHourPrice = prices.stream()
+                .filter(price -> price.insertPriceDTO().description().equals("First Hour"))
+                .findFirst()
+                .map(price -> price.insertPriceDTO().value())
+                .orElseThrow(() -> new RuntimeException("First Hour price not found"));
+        final var additionalHourPrice = prices.stream()
+                .filter(price -> price.insertPriceDTO().description().equals("Other Hours"))
+                .findFirst()
+                .map(price -> price.insertPriceDTO().value())
+                .orElseThrow(() -> new RuntimeException("Other Hours price not found"));
+        return Map.of("firstHourPrice", firstHourPrice, "additionalHourPrice", additionalHourPrice);
     }
 
     @Transactional

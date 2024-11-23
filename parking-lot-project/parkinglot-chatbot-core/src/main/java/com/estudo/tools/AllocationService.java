@@ -48,7 +48,7 @@ public class AllocationService {
     }
 
     @Tool("""
-    Consulta de alocação da vaga para o estacionamento.
+    Consulta da placa carro e da vaga para o estacionamento.
 
     Parametros:
     carPlate: Placa do carro

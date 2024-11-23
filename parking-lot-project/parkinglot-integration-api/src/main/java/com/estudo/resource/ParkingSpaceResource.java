@@ -3,9 +3,12 @@ package com.estudo.resource;
 import com.estudo.repository.parkingspace.ParkingSpace;
 import com.estudo.service.ParkingSpaceService;
 import io.quarkus.logging.Log;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.jboss.resteasy.reactive.ResponseStatus;
 
@@ -22,6 +25,7 @@ public class ParkingSpaceResource {
 
     @POST
     @ResponseStatus(CREATED)
+    @Consumes(MediaType.APPLICATION_JSON)
     public void createParkingSpace(ParkingSpace parkingSpace) {
         Log.info(String.format("M=createParkingSpace code=%s space=%s", parkingSpace.getCode(), parkingSpace.getStatus()));
         parkingSpaceService.createParkingSpace(parkingSpace);
@@ -30,6 +34,7 @@ public class ParkingSpaceResource {
 
     @GET
     @ResponseStatus(OK)
+    @Produces(MediaType.APPLICATION_JSON)
     public Iterable<ParkingSpace> getAllParkingSpaces() {
         Log.info("M=getAllParkingSpaces");
         return parkingSpaceService.getAllParkingSpaces();
