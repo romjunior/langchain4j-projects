@@ -1,5 +1,6 @@
 package com.estudo.llm;
 
+import com.estudo.guardrails.InputCheckContent;
 import com.estudo.tools.AllocationService;
 import com.estudo.tools.ParkingSpaceService;
 import com.estudo.tools.PaymentService;
@@ -8,6 +9,7 @@ import dev.langchain4j.service.MemoryId;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import io.quarkiverse.langchain4j.RegisterAiService;
+import io.quarkiverse.langchain4j.guardrails.InputGuardrails;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
@@ -30,20 +32,21 @@ public interface Assistant {
             - calcular o ticket da alocação: para calcular o ticket da alocação. Caso cliente escolha essa opção seguir o passo a passo entre <p></p>
             </service>
             
+            
             <av>
                 Para alocar uma vaga você precisa consultar os preços/tarifas do estacionamento e responder ao cliente, após o cliente concordar você tem que consultar as vagas disponíveis e mostrar ao cliente também,
                 o cliente escolhendo você deve obrigatoriamente perguntar para o cliente fornecer a placa do carro e a cor do carro para você, você tem que utilizar somente as informações passadas pelo próprio cliente.
             
                 Quebre em um passo a passo como no exemplo abaixo:
                 1.  Você vai consultar os preços/tarifas e vai responder ao cliente.
-                2.  Caso cliente concorde com o passo 1. você vai consultar as vagas disponíveis e vai responder ao cliente também.
+                2.  Caso cliente concorde com o passo 1. você vai consultar as vagas disponíveis e vai responder ao cliente também, caso não tenham nenhuma vaga diga ao cliente que estamos cheios e peça pra voltar mais tarde.
                 3.  Após o cliente responder a vaga desejada, você vai perguntar para o cliente fornecer a placa do carro. Se ele não responder a placa, você vai perguntar novamente.
                 4.  Após o cliente responder a placa do carro, você vai perguntar para o cliente fornecer a cor do carro. Se ele não responder a cor, você vai perguntar novamente.
                 5.  Você vai criar a alocação e responder o resultado para o cliente.
             </av>
             
             <c>
-            Para consultar a vaga ou se o cliente disser que quer consultar a vaga, você tem que pedir a placa do carro para que você faça a consulta e retorne as informações ao cliente. Quebre isso em passo a passo
+            Para consultar a vaga ou se o cliente disser que quer consultar a vaga, você precisa perguntar a placa do carro para que você faça a consulta e retorne as informações ao cliente. Quebre isso em passo a passo
             
             Exemplo de passo a passo:
             1. Você vai perguntar a placa do carro e o cliente vai responder.
@@ -74,5 +77,6 @@ public interface Assistant {
             </regras>
             """
     )
+    @InputGuardrails({InputCheckContent.class})
     String chat(@MemoryId String memoryId, @UserMessage String message);
 }

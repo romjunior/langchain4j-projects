@@ -27,4 +27,9 @@ public class ParkingSpaceService {
                 .map(ParkingSpaceDTO::code)
                 .toList();
     }
+
+    @Tool("Validar o formato da placa que foi passada é válido ou não")
+    public boolean isValidPlate(String plate) {
+        return plate.matches("[A-Z]{3}-\\d{4}");
+    }
 }

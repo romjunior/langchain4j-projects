@@ -83,3 +83,4 @@ Easily start your REST Web Services
 
 ### Links
 https://www.youtube.com/watch?v=7wLO1iBJ9NU
+https://github.com/meta-llama/llama-recipes/blob/main/recipes/quickstart/Prompt_Engineering_with_Llama_3.ipynb
