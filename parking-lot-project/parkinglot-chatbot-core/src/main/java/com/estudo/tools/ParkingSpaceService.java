@@ -4,7 +4,6 @@ import com.estudo.client.parkingspace.ParkingSpaceClient;
 import com.estudo.client.parkingspace.ParkingSpaceDTO;
 import com.estudo.client.parkingspace.ParkingSpaceStatus;
 import dev.langchain4j.agent.tool.Tool;
-import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
@@ -19,7 +18,6 @@ public class ParkingSpaceService {
         this.parkingSpaceClient = parkingSpaceClient;
     }
 
-    @RunOnVirtualThread
     @Tool("Consulta de vagas disponiveis no estacionamento")
     public List<String> getAvailableParkingSpaces() {
         return parkingSpaceClient.getAllParkingSpaces()

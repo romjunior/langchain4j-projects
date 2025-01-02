@@ -4,7 +4,6 @@ import com.estudo.client.price.PriceClient;
 import com.estudo.client.price.PriceDTO;
 import dev.langchain4j.agent.tool.Tool;
 import io.quarkus.logging.Log;
-import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
@@ -19,8 +18,7 @@ public class PricingService {
         this.priceClient = priceClient;
     }
 
-    @RunOnVirtualThread
-    @Tool("Consulta de preços/tarifas do estacionamento em reais")
+    @Tool("Consulta de preços/tarifas")
     public List<PriceDTO> calculatePrice() {
         Log.info("M=calculatePrice");
         return priceClient.getAllPrices();
