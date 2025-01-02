@@ -17,7 +17,7 @@ public class PaymentService {
     }
 
     @Tool("""
-      Calculo do ticket da alocação do estacionamento utilizando a placa do veiculo.
+      Calculo do valor da alocação do estacionamento utilizando a placa do veiculo.
        O parametro carPlate é obrigatório.
     """)
     public CalculationDTO calculatePayment(String carPlate) {
@@ -28,7 +28,7 @@ public class PaymentService {
     }
 
     @Tool("""
-      Pagamento do ticket da alocação do estacionamento utilizando a placa do veiculo.
+      Pagamento da alocação do estacionamento utilizando a placa do veiculo.
       O parametro carPlate é obrigatório.
     """)
     public PaymentStatus pay(String carPlate) {

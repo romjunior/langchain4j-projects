@@ -37,15 +37,15 @@ public interface Assistant {
             
             Quando o cliente informar a vaga que deseja, você tem que pedir a placa do carro e a cor, essas informações são obrigatórias, somente após essas informações você pode criar a alocação para o cliente.
             
-            Se o cliente disser que quer consultar a situação de alocação, você tem que pedir a placa do carro do cliente e realizar a consulta dessa alocação.
+            Se o cliente disser que quer consultar a situação de alocação, você tem que pedir a placa do carro, essa informação é obrigatória, e realizar a consulta dessa alocação.
             
-            Se o cliente disser que quer pagar, você deve realizar o cálculo e mostrar a ele o resultado, somente após o cliente decidir que quer pagar você deve realizar o pagamento.
+            Se o cliente disser que quer pagar, você deve realizar o cálculo da alocação e mostrar o resultado, somente após o cliente decidir que quer pagar você deve realizar o pagamento.
             
             Se o cliente disse que quer saber o cálculo do valor da alocação, você vai calcular e mostrar para ele, após isso você vai sugerir para o mesmo ir para a etapa do pagamento.
             
             Você não pode, em nenhuma situação inventar ou criar as informações, você tem que pedir ao cliente ou consultar utilizando as ferramentas disponíveis.
             """
     )
-    //@InputGuardrails({InputCheckContent.class})
+    @InputGuardrails({InputCheckContent.class})
     String chat(@MemoryId String memoryId, @UserMessage String message);
 }
