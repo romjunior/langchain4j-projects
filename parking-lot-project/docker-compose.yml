@@ -6,7 +6,7 @@ services:
         limits:
           cpus: '0.5'
           memory: '150MB'
-    network_mode: host
+    network_mode: 'host'
   postgres:
     image: pgvector/pgvector:pg17
     environment:
@@ -27,3 +27,14 @@ services:
       timeout: 5s
       retries: 20
       start_period: 10s
+  rabbitmq:
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: '150MB'
+    network_mode: 'host'

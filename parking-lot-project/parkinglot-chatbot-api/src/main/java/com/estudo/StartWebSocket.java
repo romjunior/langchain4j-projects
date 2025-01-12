@@ -1,5 +1,6 @@
 package com.estudo;
 
+import io.vertx.core.json.JsonObject;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnError;
@@ -8,17 +9,18 @@ import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
 import jakarta.websocket.server.PathParam;
 import jakarta.websocket.server.ServerEndpoint;
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
 
 @ServerEndpoint("/chat/{name}")
 @ApplicationScoped
 public class StartWebSocket {
-
-    private final ExampleChat exampleChat;
+    private Emitter<JsonObject> messageEmitter;
 
     private Session session;
 
-    public StartWebSocket(ExampleChat exampleChat) {
-        this.exampleChat = exampleChat;
+    public StartWebSocket(@Channel("messages-in") Emitter<JsonObject> messageEmitter) {
+        this.messageEmitter = messageEmitter;
     }
 
     @OnOpen
@@ -46,8 +48,10 @@ public class StartWebSocket {
 
     @OnMessage
     public void onMessage(String message, @PathParam("name") String name) {
+        messageEmitter.send(new JsonObject().put("memoryId", name)
+                .put("message", message));
         if(session != null)
-            session.getAsyncRemote().sendObject(exampleChat.chat(message), sendResult -> {
+            session.getAsyncRemote().sendObject("teste", sendResult -> {
                 if (sendResult.getException() != null) {
                     System.out.println("Unable to send message: " + sendResult.getException());
                 }
