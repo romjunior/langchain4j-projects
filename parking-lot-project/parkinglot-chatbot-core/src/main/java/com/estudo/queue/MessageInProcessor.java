@@ -8,6 +8,8 @@ import io.vertx.core.json.JsonObject;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.control.ActivateRequestContext;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
+import org.eclipse.microprofile.reactive.messaging.Message;
+import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
 @ApplicationScoped
 public class MessageInProcessor {
@@ -18,15 +20,17 @@ public class MessageInProcessor {
         this.assistant = assistant;
     }
 
-    @Incoming("messages-in")
     @Blocking
+    @Incoming("messages-in")
+    @Outgoing("messages-out")
     @ActivateRequestContext
-    public void process(JsonObject jsonObject) {
-        final var message = new MessageIn(jsonObject.getString("memoryId"), jsonObject.getString("message"));
+    public MessageOut process(Message<JsonObject> event) {
+        final var message = event.getPayload().mapTo(MessageIn.class);
         Log.info("Message received: " + message);
         try {
-            final String result = assistant.chat(message.memoryId(), message.message());
+            final String result = assistant.chat(message.getMemoryId(), message.getMessage());
             Log.info("result=" + result);
+            return MessageOut.of(result);
         } catch (GuardrailException e) {
             if(e.getMessage().contains("CheckContentFailed")) {
                 Log.info("Me desculpe mas eu não posso falar sobre qualquer outro assunto além da gestão do estacionamento que eu faço, o que você precisa?");
@@ -34,6 +38,7 @@ public class MessageInProcessor {
                 throw e;
             }
         }
+        return MessageOut.of("Desculpe, não entendi, poderia repetir por favor?");
     }
 
 }

@@ -15,17 +15,19 @@ import org.eclipse.microprofile.reactive.messaging.Emitter;
 @ServerEndpoint("/chat/{name}")
 @ApplicationScoped
 public class StartWebSocket {
-    private Emitter<JsonObject> messageEmitter;
+    private final Emitter<JsonObject> messageEmitter;
+    private final SessionManager sessionManager;
 
-    private Session session;
 
-    public StartWebSocket(@Channel("messages-in") Emitter<JsonObject> messageEmitter) {
+    public StartWebSocket(@Channel("messages-in") Emitter<JsonObject> messageEmitter,
+                          SessionManager sessionManager) {
         this.messageEmitter = messageEmitter;
+        this.sessionManager = sessionManager;
     }
 
     @OnOpen
     public void onOpen(Session session, @PathParam("name") String name) {
-        this.session = session;
+        sessionManager.addSession(session);
         session.getAsyncRemote().sendObject("Hello " + name, sendResult -> {
             if (sendResult.getException() != null) {
                 System.out.println("Unable to send message: " + sendResult.getException());
@@ -36,13 +38,13 @@ public class StartWebSocket {
 
     @OnClose
     public void onClose(Session session, @PathParam("name") String name) {
-        this.session = null;
+        sessionManager.removeSession(session);
         System.out.println("onClose> " + name);
     }
 
     @OnError
     public void onError(Session session, @PathParam("name") String name, Throwable throwable) {
-        this.session = null;
+        sessionManager.removeSession(session);
         System.out.println("onError> " + name + ": " + throwable);
     }
 
@@ -50,12 +52,6 @@ public class StartWebSocket {
     public void onMessage(String message, @PathParam("name") String name) {
         messageEmitter.send(new JsonObject().put("memoryId", name)
                 .put("message", message));
-        if(session != null)
-            session.getAsyncRemote().sendObject("teste", sendResult -> {
-                if (sendResult.getException() != null) {
-                    System.out.println("Unable to send message: " + sendResult.getException());
-                }
-            });
         System.out.println("onMessage> " + name + ": " + message);
     }
 }
