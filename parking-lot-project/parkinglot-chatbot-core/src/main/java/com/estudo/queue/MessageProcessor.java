@@ -12,11 +12,11 @@ import org.eclipse.microprofile.reactive.messaging.Message;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
 @ApplicationScoped
-public class MessageInProcessor {
+public class MessageProcessor {
 
     private final Assistant assistant;
 
-    public MessageInProcessor(Assistant assistant) {
+    public MessageProcessor(Assistant assistant) {
         this.assistant = assistant;
     }
 
