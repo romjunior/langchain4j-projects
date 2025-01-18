@@ -71,7 +71,7 @@ public class PaymentService {
         if(allocation == null) {
             return PaymentStatus.NOT_EXISTS;
         } else if(allocation.getExitDate() != null) {
-            return PaymentStatus.ALREADY_PAIDED;
+            return PaymentStatus.ALREADY_PAID;
         }
 
         final var payment = Payment.of(allocation.getId(), calculatePaymentByCarPlate(carPlate).value());

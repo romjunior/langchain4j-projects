@@ -42,7 +42,7 @@ public class ParkingSpaceResource {
 
     @GET
     @Path("/{code}")
-    @ResponseStatus(OK)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getParkingSpace(String code) {
         Log.info(String.format("M=getParkingSpace code=%s", code));
         return parkingSpaceService.getParkingSpace(code)

@@ -28,7 +28,7 @@ public class AllocationService {
                     allocationDTO.carColor()
             );
             parkingSpaceService.getParkingSpace(allocationDTO.parkingSpaceCode())
-                    .ifPresent(parkingSpace -> parkingSpace.setStatus(ParkingSpaceStatus.OCUPIED));
+                    .ifPresent(parkingSpace -> parkingSpace.setStatus(ParkingSpaceStatus.OCCUPIED));
             allocationRepository.persist(allocation);
             return true;
         } else {
