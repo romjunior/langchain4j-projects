@@ -38,3 +38,20 @@ services:
           cpus: '0.5'
           memory: '150MB'
     network_mode: 'host'
+  parking-lot-integration-api:
+    image: junior/parkinglot-integration-api:1.0.0
+    depends_on:
+      postgres:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: '0.8'
+          memory: '150MB'
+    healthcheck:
+      test: curl --fail http://localhost:8081/q/health || exit 1
+      interval: 40s
+      timeout: 30s
+      retries: 5
+      start_period: 60s
+    network_mode: 'host'
