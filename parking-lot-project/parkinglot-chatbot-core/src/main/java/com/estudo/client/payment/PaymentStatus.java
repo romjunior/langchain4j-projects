@@ -9,7 +9,7 @@ public enum PaymentStatus {
     APPROVED,
 
     @Description("Já foi pago")
-    ALREADY_PAIDED,
+    ALREADY_PAID,
 
     @Description("Não existe a locação informada")
     NOT_EXISTS

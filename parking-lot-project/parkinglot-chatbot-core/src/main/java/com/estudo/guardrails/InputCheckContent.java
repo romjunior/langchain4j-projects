@@ -22,11 +22,14 @@ public class InputCheckContent implements InputGuardrail {
     @Override
     public InputGuardrailResult validate(InputGuardrailParams params) {
         var text = params.memory().messages()
-                .stream().map(this::convertMessagesToString)
+                .stream()
+                .map(this::convertMessagesToString)
                 .filter(texts -> !texts.isEmpty())
                 .reduce("", (a, b) -> a + "\n" + b);
 
-        text = text + "\n" + params.userMessage().singleText();
+        text = text + "\n" + "User: " + params.userMessage().singleText();
+
+        Log.info("text=" + text);
 
         final var result = guardRailsAssistant.checkContentAbout(text);
         Log.info("result=" + result.relation() + ", reason=" + result.reasoning());
@@ -40,8 +43,8 @@ public class InputCheckContent implements InputGuardrail {
     String convertMessagesToString(ChatMessage message) {
         return switch (message) {
             case UserMessage userMessage -> "User: " + userMessage.singleText();
-            case AiMessage aiMessage -> "Assistant: " + aiMessage.text();
-            case null, default -> "";
+            case AiMessage aiMessage -> aiMessage.text() == null ? "" : "Assistant: " + aiMessage.text();
+            default -> "";
         };
     }
 }
