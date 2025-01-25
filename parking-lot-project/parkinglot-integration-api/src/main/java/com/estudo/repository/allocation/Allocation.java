@@ -1,6 +1,7 @@
 package com.estudo.repository.allocation;
 
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -8,6 +9,7 @@ import jakarta.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@RegisterForReflection
 @Entity(name = "ALLOCATION")
 public class Allocation {
     @Id

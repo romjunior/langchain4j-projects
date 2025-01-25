@@ -1,5 +1,6 @@
 package com.estudo.repository.payment;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -8,6 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@RegisterForReflection
 @Entity(name = "PAYMENT")
 public class Payment {
     @Id
