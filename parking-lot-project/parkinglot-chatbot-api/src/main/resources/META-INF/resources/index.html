@@ -3,111 +3,239 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Quarkus Chat!</title>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css">
-
+    <title>IA Chat!</title>
     <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+        }
+
         #chat {
-          resize: none;
-          overflow: hidden;
-          min-height: 300px;
-          max-height: 300px;
-      }
+            flex: 1;
+            overflow-y: auto;
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .message {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 5px 0;
+            border-radius: 20px;
+            max-width: 70%;
+            word-wrap: break-word;
+            font-size: 14px;
+        }
+
+        .ia-message {
+            background-color: #e3f7fc;
+            color: #0c5460;
+        }
+
+        .user-message {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .message-row {
+            display: flex;
+        }
+
+        .message-row.user {
+            justify-content: flex-end;
+        }
+
+        .message-row.ia {
+            justify-content: flex-start;
+        }
+
+        #input-container {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+        }
+
+        #msg {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+        }
+
+        #send {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.2s ease;
+        }
+
+        #send:hover {
+            background-color: #0056b3;
+        }
+
+        .bubble {
+            position: relative;
+        }
+
+        .bubble:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+
+        .user-message:after {
+            right: -10px;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent #d4edda;
+        }
+
+        .ia-message:after {
+            left: -10px;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent #e3f7fc transparent transparent;
+        }
+
+        .typing {
+            font-style: italic;
+            color: #888;
+            margin: 5px 0;
+        }
     </style>
 </head>
 
 <body>
-<nav class="navbar navbar-default navbar-pf" role="navigation">
-    <div class="navbar-header">
-        <a class="navbar-brand" href="/">
-            <p><strong>>> Quarkus Chat!</strong></p>
-        </a>
-    </div>
-</nav>
-<div class="container">
-    <br/>
-    <div class="row">
-        <input id="name" class="col-md-4" type="text" placeholder="your name">
-        <button id="connect" class="col-md-1 btn btn-primary" type="button">connect</button>
-        <br/>
-        <br/>
-    </div>
-    <div class="row">
-        <textarea class="col-md-8" id="chat"></textarea>
-    </div>
-    <div class="row">
-        <input class="col-md-6" id="msg" type="text" placeholder="enter your message">
-        <button class="col-md-1 btn btn-primary" id="send" type="button" disabled>send</button>
+<div id="chat-container">
+    <div id="chat" class="message-container">
+        <div class="message-row ia">
+            <div class="message ia-message">Bem-vindo ao IA Chat! Digite seu nome para começar.</div>
+        </div>
     </div>
 
+    <div id="input-container">
+        <input id="msg" type="text" placeholder="Digite sua mensagem" disabled>
+        <button id="send" disabled>Enviar</button>
+    </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"></script>
-
-<script type="text/javascript">
+<script>
     var connected = false;
     var socket;
 
-    $( document ).ready(function() {
-        $("#connect").click(connect);
-        $("#send").click(sendMessage);
+    document.addEventListener("DOMContentLoaded", function () {
+        const sendButton = document.getElementById("send");
+        const messageInput = document.getElementById("msg");
 
-        $("#name").keypress(function(event){
-            if(event.keyCode == 13 || event.which == 13) {
-                connect();
-            }
-        });
+        sendButton.addEventListener("click", sendMessage);
 
-        $("#msg").keypress(function(event) {
-            if(event.keyCode == 13 || event.which == 13) {
+        messageInput.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
                 sendMessage();
             }
         });
-
-      $("#chat").change(function() {
-          scrollToBottom();
-        });
-
-        $("#name").focus();
     });
 
-    var connect = function() {
-        if (! connected) {
-            var name = $("#name").val();
-            console.log("Val: " + name);
+    var connect = function () {
+        if (!connected) {
+            const name = prompt("Digite seu nome:");
+            if (!name.trim()) {
+                alert("Por favor, insira seu nome.");
+                return;
+            }
+
             socket = new WebSocket("ws://" + location.host + "/chat/" + name);
-            socket.onopen = function() {
+
+            socket.onopen = function () {
                 connected = true;
-                console.log("Connected to the web socket");
-                $("#send").attr("disabled", false);
-                $("#connect").attr("disabled", true);
-                $("#name").attr("disabled", true);
-                $("#msg").focus();
+                document.getElementById("send").disabled = false;
+                document.getElementById("msg").disabled = false;
             };
-            socket.onmessage =function(m) {
-                console.log("Got message: " + m.data);
-                $("#chat").append(m.data + "\n");
-                scrollToBottom();
+
+            socket.onmessage = function (m) {
+                removeTyping();
+                addMessage("IA", m.data);
+            };
+
+            socket.onclose = function () {
+                connected = false;
+                alert("Conexão encerrada com o servidor.");
             };
         }
     };
 
-    var sendMessage = function() {
+    var sendMessage = function () {
         if (connected) {
-            var value = $("#msg").val();
-            console.log("Sending " + value);
+            const messageInput = document.getElementById("msg");
+            const value = messageInput.value;
+            if (!value.trim()) return;
+
+            addMessage("Você", value);
             socket.send(value);
-            $("#msg").val("");
+            messageInput.value = "";
+
+            showTyping();
         }
     };
 
-    var scrollToBottom = function () {
-      $('#chat').scrollTop($('#chat')[0].scrollHeight);
+    var addMessage = function (sender, message) {
+        const chat = document.getElementById("chat");
+        const className = sender === "IA" ? "ia-message" : "user-message";
+        const rowClass = sender === "IA" ? "ia" : "user";
+
+        const messageRow = document.createElement("div");
+        messageRow.className = `message-row ${rowClass}`;
+
+        const bubble = document.createElement("div");
+        bubble.className = `bubble message ${className}`;
+        bubble.textContent = message;
+
+        messageRow.appendChild(bubble);
+        chat.appendChild(messageRow);
+
+        chat.scrollTop = chat.scrollHeight;
     };
 
+    var showTyping = function () {
+        const chat = document.getElementById("chat");
+        if (!document.getElementById("typing-indicator")) {
+            const typingIndicator = document.createElement("div");
+            typingIndicator.id = "typing-indicator";
+            typingIndicator.className = "typing";
+            typingIndicator.textContent = "IA está digitando...";
+            chat.appendChild(typingIndicator);
+            chat.scrollTop = chat.scrollHeight;
+        }
+    };
+
+    var removeTyping = function () {
+        const typingIndicator = document.getElementById("typing-indicator");
+        if (typingIndicator) {
+            typingIndicator.remove();
+        }
+    };
+
+    connect();
 </script>
 </body>
 
