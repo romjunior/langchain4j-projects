@@ -40,6 +40,8 @@ services:
     network_mode: 'host'
   parking-lot-integration-api:
     image: junior/parkinglot-integration-api:1.0.0
+    environment:
+      - TZ=America/Sao_Paulo
     depends_on:
       postgres:
         condition: service_healthy

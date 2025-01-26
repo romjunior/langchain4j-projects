@@ -1,14 +1,20 @@
 package com.estudo;
 
 public class MessageOut {
+    private String sessionId;
     private String answer;
 
-    public MessageOut(String answer) {
+    public MessageOut(String sessionId, String answer) {
+        this.sessionId = sessionId;
         this.answer = answer;
     }
 
-    public static MessageOut of(String answer) {
-        return new MessageOut(answer);
+    public static MessageOut of(String sessionId, String answer) {
+        return new MessageOut(sessionId, answer);
+    }
+
+    public String getSessionId() {
+        return sessionId;
     }
 
     public String getAnswer() {

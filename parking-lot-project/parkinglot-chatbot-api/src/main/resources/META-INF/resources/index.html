@@ -157,32 +157,59 @@
     });
 
     var connect = function () {
-        if (!connected) {
-            const name = prompt("Digite seu nome:");
-            if (!name.trim()) {
-                alert("Por favor, insira seu nome.");
-                return;
+    if (!connected) {
+        const name = prompt("Digite seu nome:");
+        if (!name.trim()) {
+            alert("Por favor, insira seu nome.");
+            return;
+        }
+
+        // Faz a chamada ao endpoint para criar a sessão
+        fetch(`http://localhost:8082/create-session?name=${encodeURIComponent(name)}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
             }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro ao criar sessão: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(sessionData => {
+                const sessionId = sessionData.id;
 
-            socket = new WebSocket("ws://" + location.host + "/chat/" + name);
+                if (!sessionId) {
+                    throw new Error("ID da sessão não retornado pelo servidor.");
+                }
 
-            socket.onopen = function () {
-                connected = true;
-                document.getElementById("send").disabled = false;
-                document.getElementById("msg").disabled = false;
-            };
+                // Conecta ao WebSocket usando o ID da sessão
+                socket = new WebSocket("ws://" + location.host + "/chat/" + sessionId);
 
-            socket.onmessage = function (m) {
-                removeTyping();
-                addMessage("IA", m.data);
-            };
+                socket.onopen = function () {
+                    connected = true;
+                    document.getElementById("send").disabled = false;
+                    document.getElementById("msg").disabled = false;
+                };
 
-            socket.onclose = function () {
-                connected = false;
-                alert("Conexão encerrada com o servidor.");
-            };
+                socket.onmessage = function (m) {
+                    removeTyping();
+                    addMessage("IA", m.data);
+                };
+
+                socket.onclose = function () {
+                    connected = false;
+                    alert("Conexão encerrada com o servidor.");
+                };
+            })
+            .catch(error => {
+                console.error('Erro na conexão:', error);
+                alert("Não foi possível conectar ao servidor. Verifique sua conexão ou tente novamente mais tarde.");
+            });
         }
     };
+
 
     var sendMessage = function () {
         if (connected) {

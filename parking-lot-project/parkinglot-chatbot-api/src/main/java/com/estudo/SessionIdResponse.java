@@ -1,4 +1,7 @@
 package com.estudo;
 
-public record SessionIdResponse() {
+import java.util.UUID;
+
+public record SessionIdResponse(UUID id) {
+
 }
