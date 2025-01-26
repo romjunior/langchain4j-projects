@@ -24,18 +24,14 @@ public class ParkingLotMemoryManager {
     }
 
     public void set(String memoryId, String messages) {
-        Log.info("set memory Duration minutes=" + memoryTime.toMinutes() + " convert seconds=" + memoryTime.toSeconds());
-        Log.info("messages" + messages);
         valueCommands.setex(PREFIX + memoryId, memoryTime.getSeconds(), messages);
     }
 
     public String get(String memoryId) {
-        Log.info("get");
         return valueCommands.get(PREFIX + memoryId);
     }
 
     public void delete(String memoryId) {
-        Log.info("delete");
         valueCommands.getdel(PREFIX + memoryId);
     }
 }

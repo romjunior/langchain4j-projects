@@ -24,7 +24,6 @@ public class ParkinglotChatMemoryStore implements ChatMemoryStore {
 
     @Override
     public List<ChatMessage> getMessages(Object memoryId) {
-        Log.info("M=getMessages");
         if(memoryId instanceof String sMemoryId) {
             final var result = parkingLotMemoryManager.get(sMemoryId);
             if(result != null) {
@@ -38,7 +37,6 @@ public class ParkinglotChatMemoryStore implements ChatMemoryStore {
 
     @Override
     public void updateMessages(Object memoryId, List<ChatMessage> list) {
-        Log.info("M=updateMessages");
         if(memoryId instanceof String sMemoryId) {
             parkingLotMemoryManager.set(sMemoryId, messagesToJson(list));
         } else {
@@ -48,7 +46,6 @@ public class ParkinglotChatMemoryStore implements ChatMemoryStore {
 
     @Override
     public void deleteMessages(Object memoryId) {
-        Log.info("M=deleteMessages");
         if (memoryId instanceof String sMemoryId) {
             parkingLotMemoryManager.delete(sMemoryId);
         } else {

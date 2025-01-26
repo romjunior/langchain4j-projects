@@ -4,20 +4,20 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @RegisterForReflection
 public class MessageIn {
-    private final String memoryId;
+    private final String sessionId;
     private final String message;
 
-    private MessageIn(String memoryId, String message) {
-        this.memoryId = memoryId;
+    private MessageIn(String sessionId, String message) {
+        this.sessionId = sessionId;
         this.message = message;
     }
 
-    public static MessageIn of(String memoryId, String message) {
-        return new MessageIn(memoryId, message);
+    public static MessageIn of(String sessionId, String message) {
+        return new MessageIn(sessionId, message);
     }
 
-    public String getMemoryId() {
-        return memoryId;
+    public String getSessionId() {
+        return sessionId;
     }
 
     public String getMessage() {
@@ -27,7 +27,7 @@ public class MessageIn {
     @Override
     public String toString() {
         return "MessageIn{" +
-                "memoryId='" + memoryId + '\'' +
+                "memoryId='" + sessionId + '\'' +
                 ", message='" + message + '\'' +
                 '}';
     }
