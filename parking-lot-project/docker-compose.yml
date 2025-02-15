@@ -29,6 +29,11 @@ services:
       start_period: 10s
   rabbitmq:
     image: rabbitmq:3-management
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
@@ -39,7 +44,7 @@ services:
           memory: '150MB'
     network_mode: 'host'
   parking-lot-integration-api:
-    image: junior/parkinglot-integration-api:1.0.0
+    image: parkinglot/parkinglot-integration-api:1.0.0
     environment:
       - TZ=America/Sao_Paulo
     depends_on:
@@ -52,6 +57,25 @@ services:
           memory: '150MB'
     healthcheck:
       test: ["CMD-SHELL", "curl --fail http://localhost:8081/q/health || exit 1"]
+      interval: 40s
+      timeout: 30s
+      retries: 5
+      start_period: 60s
+    network_mode: 'host'
+  parking-lot-chatbot-api:
+    image: parkinglot/parkinglot-chatbot-api:1.0.0
+    environment:
+      - TZ=America/Sao_Paulo
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: '0.8'
+          memory: '150MB'
+    healthcheck:
+      test: [ "CMD-SHELL", "curl --fail http://localhost:8082/q/health || exit 1" ]
       interval: 40s
       timeout: 30s
       retries: 5

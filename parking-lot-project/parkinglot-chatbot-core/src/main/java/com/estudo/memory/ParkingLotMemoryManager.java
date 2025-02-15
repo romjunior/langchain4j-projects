@@ -1,6 +1,5 @@
 package com.estudo.memory;
 
-import io.quarkus.logging.Log;
 import io.quarkus.redis.datasource.RedisDataSource;
 import io.quarkus.redis.datasource.value.ValueCommands;
 import jakarta.enterprise.context.ApplicationScoped;

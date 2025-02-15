@@ -1,6 +1,8 @@
 package com.estudo.queue;
 
 import com.estudo.llm.Assistant;
+import com.estudo.llm.OptionManager;
+import com.estudo.llm.OptionStatus;
 import io.quarkiverse.langchain4j.runtime.aiservice.GuardrailException;
 import io.quarkus.logging.Log;
 import io.smallrye.common.annotation.Blocking;
@@ -16,8 +18,11 @@ public class MessageProcessor {
 
     private final Assistant assistant;
 
-    public MessageProcessor(Assistant assistant) {
+    private final OptionManager  optionManager;
+
+    public MessageProcessor(Assistant assistant, OptionManager optionManager) {
         this.assistant = assistant;
+        this.optionManager = optionManager;
     }
 
     @Blocking
@@ -28,9 +33,24 @@ public class MessageProcessor {
         final var message = event.getPayload().mapTo(MessageIn.class);
         Log.info("Message received: " + message);
         try {
-            final String result = assistant.chat(message.getSessionId(), message.getMessage());
-            Log.info("result=" + result);
-            return MessageOut.of(message.getSessionId(), result);
+
+            final var option = optionManager.selectOption(message.getSessionId(), message.getMessage());
+
+            Log.info("option=" + option);
+
+            if(OptionStatus.UNKOWN.equals(option)) {
+                return MessageOut.of(message.getSessionId(), """
+                        Olá! eu sou o assistente virtual do estacionamento, como posso ajudar?
+                        Você pode me dizer:
+                        - Quero alocar uma vaga
+                        - Quero consultar uma alocação
+                        - Quero pagar a alocação
+                        """);
+            } else {
+                final String result = assistant.chat(message.getSessionId(), message.getMessage());
+                Log.info("result=" + result);
+                return MessageOut.of(message.getSessionId(), result);
+            }
         } catch (GuardrailException e) {
             if(e.getMessage().contains("CheckContentFailed")) {
                 return MessageOut.of(message.getSessionId(), "Me desculpe mas eu não posso falar sobre qualquer outro assunto além da gestão do estacionamento que eu faço, o que você precisa?");
