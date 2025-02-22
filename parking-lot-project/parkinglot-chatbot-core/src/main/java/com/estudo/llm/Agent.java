@@ -1,6 +1,7 @@
 package com.estudo.llm;
 
 import com.estudo.guardrails.InputCheckContent;
+import com.estudo.guardrails.OutputCheckResponse;
 import com.estudo.tools.AllocationService;
 import com.estudo.tools.ParkingSpaceService;
 import com.estudo.tools.PaymentService;
@@ -10,6 +11,7 @@ import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import io.quarkiverse.langchain4j.RegisterAiService;
 import io.quarkiverse.langchain4j.guardrails.InputGuardrails;
+import io.quarkiverse.langchain4j.guardrails.OutputGuardrails;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
@@ -19,13 +21,13 @@ import jakarta.enterprise.context.ApplicationScoped;
         AllocationService.class,
         PaymentService.class
 })
-public interface Assistant {
+public interface Agent {
 
     @SystemMessage(
             """
             Você é um assistente de um estacionamento de carros que vai ajudar os clientes.
             O seu nome é Alex.
-            Quando o cliente comprimentar você, você deve se apresentar e mostrar a lista de coisas que você pode fazer.
+            Quando o cliente comprimentar(oi, ola, bom dia, boa tarde e boa noite) você, você deve se apresentar e mostrar a lista de coisas que você pode fazer.
             Você vai poder:
              - alocar uma vaga pro carro do cliente.
              - consultar a situação da alocação.
@@ -46,6 +48,7 @@ public interface Assistant {
             Você não pode, em nenhuma situação inventar ou criar as informações, você tem que pedir ao cliente ou consultar utilizando as ferramentas disponíveis.
             """
     )
-    @InputGuardrails({InputCheckContent.class})
+    @InputGuardrails(InputCheckContent.class)
+    //@OutputGuardrails(OutputCheckResponse.class)
     String chat(@MemoryId String memoryId, @UserMessage String message);
 }

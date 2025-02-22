@@ -18,7 +18,6 @@ public class PaymentService {
 
     @Tool("""
       Calculo do valor da alocação do estacionamento utilizando a placa do veiculo.
-       O parametro carPlate é obrigatório.
     """)
     public CalculationDTO calculatePayment(String carPlate) {
         if (carPlate == null || carPlate.isEmpty()) {
@@ -29,7 +28,6 @@ public class PaymentService {
 
     @Tool("""
       Pagamento da alocação do estacionamento utilizando a placa do veiculo.
-      O parametro carPlate é obrigatório.
     """)
     public PaymentStatus pay(String carPlate) {
         if (carPlate == null || carPlate.isEmpty()) {
