@@ -11,3 +11,4 @@ Este repositório contém projetos construídos usando LangChain4j e afins, um f
 ## Projetos
 
 * [**Intro RAG**](./intro-rag/INTRO-RAG.md): Projeto que possui uma estrutura de RAG Simples usando Langchain4j.
+* [**Parking Lot Agent**](./parking-lot-project/README.md): Projeto de um Agent que gerencia um estacionamento(Em Construção).
