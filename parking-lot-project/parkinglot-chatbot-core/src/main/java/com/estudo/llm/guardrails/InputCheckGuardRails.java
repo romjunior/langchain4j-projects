@@ -1,4 +1,4 @@
-package com.estudo.llm;
+package com.estudo.llm.guardrails;
 
 import com.estudo.guardrails.CheckContent;
 import dev.langchain4j.service.UserMessage;

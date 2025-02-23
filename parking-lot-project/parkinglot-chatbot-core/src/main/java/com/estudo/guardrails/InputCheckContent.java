@@ -1,6 +1,6 @@
 package com.estudo.guardrails;
 
-import com.estudo.llm.InputCheckGuardRails;
+import com.estudo.llm.guardrails.InputCheckGuardRails;
 import com.estudo.memory.MessagesToStringConverter;
 import io.quarkiverse.langchain4j.guardrails.InputGuardrail;
 import io.quarkiverse.langchain4j.guardrails.InputGuardrailParams;

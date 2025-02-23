@@ -1,7 +1,7 @@
 package com.estudo.llm;
 
 import com.estudo.guardrails.InputCheckContent;
-import com.estudo.guardrails.OutputCheckResponse;
+import com.estudo.guardrails.ValidatePriceResponse;
 import com.estudo.tools.AllocationService;
 import com.estudo.tools.ParkingSpaceService;
 import com.estudo.tools.PaymentService;
@@ -45,10 +45,10 @@ public interface Agent {
             
             Se o cliente disse que quer saber o cálculo do valor da alocação, você vai calcular e mostrar para ele, após isso você vai sugerir para o mesmo ir para a etapa do pagamento.
             
-            Você não pode, em nenhuma situação inventar ou criar as informações, você tem que pedir ao cliente ou consultar utilizando as ferramentas disponíveis.
+            Você não pode, em nenhuma situação inventar ou criar as informações, você tem que pedir ao cliente ou consultar utilizando as ferramentas disponíveis. Responda de forma sucinta e breve.
             """
     )
     @InputGuardrails(InputCheckContent.class)
-    //@OutputGuardrails(OutputCheckResponse.class)
+    @OutputGuardrails(ValidatePriceResponse.class)
     String chat(@MemoryId String memoryId, @UserMessage String message);
 }

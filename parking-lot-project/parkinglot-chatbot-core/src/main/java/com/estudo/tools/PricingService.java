@@ -21,6 +21,8 @@ public class PricingService {
     @Tool("Consulta de preços/tarifas")
     public List<PriceDTO> calculatePrice() {
         Log.info("M=calculatePrice");
-        return priceClient.getAllPrices();
+        final var result = priceClient.getAllPrices();
+        Log.info(String.format("M=calculatePrice result=%s", result));
+        return result;
     }
 }
