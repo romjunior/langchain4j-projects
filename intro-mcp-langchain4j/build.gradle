@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.estudo'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.slf4j:slf4j-reload4j:2.0.17'
+    implementation 'dev.langchain4j:langchain4j:1.0.0-beta3'
+    implementation 'dev.langchain4j:langchain4j-mcp:1.0.0-beta3'
+    implementation 'dev.langchain4j:langchain4j-ollama:1.0.0-beta3'
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
