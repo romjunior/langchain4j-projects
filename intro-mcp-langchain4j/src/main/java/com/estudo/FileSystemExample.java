@@ -17,9 +17,9 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.List;
 
-public class Main {
+public class FileSystemExample {
 
-    static final Logger log = LoggerFactory.getLogger(Main.class);
+    static final Logger log = LoggerFactory.getLogger(FileSystemExample.class);
 
     interface Assistant {
 
@@ -75,7 +75,7 @@ public class Main {
 
             log.info("starting chat");
 
-            String response = chat.chat("me mostre uma lista com todos os aruivos que tem no diretório " + path);
+            String response = chat.chat("liste todos os arquivos do diretorio " + path);
             log.info("response={}", response);
         }
     }
