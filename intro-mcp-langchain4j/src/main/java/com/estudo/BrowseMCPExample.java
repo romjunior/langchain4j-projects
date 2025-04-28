@@ -71,7 +71,7 @@ public class BrowseMCPExample {
 
         log.info("starting chat");
 
-        String response = chat.chat("acesse o https://statusinvest.com.br/acoes/{código da ação}, coloque no código da ação ITSA4 após isso leia HTML e encontre as tags com o valor atual e me retorne o preço descrito");
+        String response = chat.chat("acesse o google.com e pesquise MCP");
         log.info("response={}", response);
     }
 }
