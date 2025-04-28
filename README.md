@@ -1,17 +1,16 @@
 # LangChain4j Projects
 
-## Visão Geral
-Este repositório contém projetos construídos usando LangChain4j e afins, um framework baseado em Java para construir aplicações com Modelos de Linguagem Grande (LLMs).
+## Overview
+This repository contains projects built using LangChain4j, a Java-based framework for building applications with Large Language Models (LLMs).
 
-## Pré-requisitos
-- Java 21 ou superior
-- Maven ou Gradle
-- Configs para execução de LLMs locais ou API keys para execução na Cloud.
+## Prerequisites
+- Java 21 or higher
+- Maven or Gradle
+- Configuration for local LLM execution or API keys for cloud execution.
 
-## Projetos
+## Projects
 
-* [**Intro RAG**](./intro-rag/INTRO-RAG.md): Projeto que possui uma estrutura de RAG Simples usando Langchain4j.
-* [**Parking Lot Agent**](./parking-lot-project/README.md): Projeto de um Agent que gerencia um estacionamento(Em Construção).
-* [**Intro MCP Langchain4j**](./intro-mcp-langchain4j/README.md): Projeto introdutório sobre como usar o (MCP) com Langchain4j, incluindo exemplos que utilizam dados do filesystem e de um navegador web para automação.
-* [**custom-mcp-weather-server**](./custom-mcp-weather-server/README.md): Projeto de um servidor MCP (Model Context Protocol) em STDIO customizado que expõe uma ferramenta para obter a temperatura de uma cidade específica.
-
+*   [**Intro RAG**](./intro-rag/INTRO-RAG.md): A project featuring a simple RAG (Retrieval-Augmented Generation) structure using Langchain4j.
+*   [**Parking Lot Agent**](./parking-lot-project/README.md): An Agent project for managing a parking lot (Work in Progress).
+*   [**Intro MCP Langchain4j**](./intro-mcp-langchain4j/README.md): An introductory project on using MCP (Model Context Protocol) with Langchain4j, including examples that use data from the filesystem and a web browser for automation.
+*   [**custom-mcp-weather-server**](./custom-mcp-weather-server/README.md): A custom MCP (Model Context Protocol) server project running over STDIO that exposes a tool to get the temperature of a specific city.
