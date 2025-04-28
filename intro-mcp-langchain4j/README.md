@@ -1,4 +1,4 @@
-# Langchain4j MCP Examples (Filesystem & Browser)
+# Langchain4j MCP Examples (Filesystem, Browser & Custom)
 
 ## Introdução
 
@@ -6,8 +6,9 @@ Este projeto demonstra como integrar o framework [Langchain4j](https://github.co
 
 1.  **O sistema de arquivos local:** Listar arquivos em um diretório especificado (`FileSystemExample.java`).
 2.  **Um navegador web:** Acessar uma URL, extrair informações do HTML (`BrowseMCPExample.java`).
+3.  **Um servidor MCP(STDIO) customizado:** Obter a temperatura de uma cidade utilizando um servidor MCP implementado em Java e executado como um processo separado (`CustomMCPWeatherCityExample.java`).
 
-O projeto utiliza `StdioMcpTransport` para iniciar e comunicar-se com servidores MCP externos (executados via `npx`) que expõem as funcionalidades de sistema de arquivos e navegador como ferramentas para o Langchain4j.
+O projeto utiliza `StdioMcpTransport` para iniciar e comunicar-se com servidores MCP externos (executados via `npx` para os exemplos de filesystem/browser, e via `java -jar` para o exemplo customizado) que expõem as funcionalidades como ferramentas para o Langchain4j.
 
 ## Stack Tecnológica
 
@@ -18,11 +19,12 @@ O projeto utiliza `StdioMcpTransport` para iniciar e comunicar-se com servidores
     *   `langchain4j-ollama`: Integração com o servidor Ollama.
     *   `langchain4j-mcp`: Cliente e ferramentas para Model Context Protocol.
 *   **Protocolo de Ferramentas:** Model Context Protocol (MCP)
-    *   Servidor MCP para Filesystem: `@modelcontextprotocol/server-filesystem`
-    *   Servidor MCP para Browser: `@browsermcp/mcp`
+    *   Servidor MCP para Filesystem: `@modelcontextprotocol/server-filesystem` (via npx)
+    *   Servidor MCP para Browser: `@browsermcp/mcp` (via npx)
+    *   Servidor MCP Customizado para Clima: `custom-mcp-weather-server-0.0.1.jar` (via java -jar)
 *   **LLM Provider:** Ollama (executando localmente)
-*   **Runtime para Servidores MCP:** Node.js / npm / npx
-*   **Gerenciador de Versões (utilizado nos exemplos):** asdf (para `npx`)
+*   **Runtime para Servidores MCP:** Node.js / npm / npx (para exemplos de filesystem/browser), JVM (para exemplo de clima)
+*   **Gerenciador de Versões (utilizado nos exemplos):** asdf (para `npx` e `java`)
 *   **Logging:** SLF4j com binding para Reload4j (configurado via `log4j.properties`)
 
 ## Pré-requisitos
@@ -31,19 +33,32 @@ Antes de executar o projeto, certifique-se de ter instalado:
 
 1.  **JDK:** Java Development Kit (ex: versão 17 ou superior).
 2.  **Gradle:** Ou utilize o Gradle Wrapper (`./gradlew`) incluído no projeto.
-3.  **Node.js e npm/npx:** Necessário para executar os servidores MCP.
-4.  **asdf (Opcional, mas usado nos exemplos):** Se você não usa `asdf`, precisará ajustar os caminhos para `npx` nas classes `FileSystemExample.java` e `BrowseMCPExample.java` para o caminho correto do seu executável `npx`.
+3.  **Node.js e npm/npx:** Necessário para executar os servidores MCP dos exemplos de Filesystem e Browser.
+4.  **asdf (Opcional, mas usado nos exemplos):** Se você não usa `asdf`, precisará ajustar os caminhos para `npx` nas classes `FileSystemExample.java` e `BrowseMCPExample.java`, e o caminho para `java` (ou o comando `asdf exec java`) na classe `CustomMCPWeatherCityExample.java` para os caminhos corretos dos seus executáveis.
 5.  **Ollama:** Instale e execute o Ollama localmente.
     *   Verifique se ele está acessível no endereço padrão `http://localhost:11434`.
     *   Baixe o modelo LLM que deseja usar (ex: `ollama pull llama3.2`).
+6.  **Servidor MCP Customizado (para `CustomMCPWeatherCityExample`):** O arquivo `custom-mcp-weather-server-0.0.1.jar` deve estar presente no diretório raiz do projeto (ou o caminho no código `CustomMCPWeatherCityExample.java` deve ser ajustado). Este JAR é o servidor MCP que fornece a ferramenta de clima. *Nota: Este JAR não está incluído neste repositório e precisaria ser construído ou obtido separadamente.*
 
 ## Configuração
 
 1.  **Clone o Repositório:** Esse aqui
-2. **crie o arquivo .env:** Esse arquivo é para você utilizar para execução via IDE se precisar
-   * BASE_URL: url do ollama
-     MODEL_NAME: nome do modelo(no exemplo foi usado o llama3.2)
-     EXAMPLE_PATH: caminho que o Servidor de MCP para Filesystem vai usar para iniciar como base
+2.  **Construa o Projeto (se necessário):** `./gradlew build` (pode baixar dependências)
+3.  **Crie o arquivo .env:** Esse arquivo é para você utilizar para execução via IDE se precisar.
+    *   `BASE_URL`: url do ollama (ex: `http://localhost:11434`)
+    *   `MODEL_NAME`: nome do modelo (ex: `llama3.2`)
+    *   `EXAMPLE_PATH`: caminho que o Servidor de MCP para Filesystem vai usar para iniciar como base (ex: `/home/user/Documents`)
+4.  **Ajuste os Caminhos dos Executáveis (se não usar `asdf`):** Conforme mencionado nos pré-requisitos, edite os caminhos dos comandos `npx` e `java -jar` dentro dos arquivos Java de exemplo (`FileSystemExample.java`, `BrowseMCPExample.java`, `CustomMCPWeatherCityExample.java`) se você não estiver usando a estrutura de diretórios do `asdf` mostrada nos exemplos.
+5.  **Disponibilize o JAR do Servidor de Clima:** Certifique-se de que o `custom-mcp-weather-server-0.0.1.jar` esteja no local correto para que o `CustomMCPWeatherCityExample` possa executá-lo.
+
+## Executando os Exemplos
+
+Você pode executar as classes `main` diretamente pela sua IDE (certifique-se de que as variáveis de ambiente do `.env` estejam carregadas) ou via Gradle:
+
+*   `./gradlew runFileSystemExample`
+*   `./gradlew runBrowseMCPExample`
+*   `./gradlew runCustomMCPWeatherCityExample` (Requer que o `custom-mcp-weather-server-0.0.1.jar` esteja presente)
+
 ## Links Úteis
 * BrowserMCP: https://browsermcp.io/ - Documentação e informações sobre o servidor MCP para interação com navegador.
 * Langchain4j MCP Tutorial: https://docs.langchain4j.dev/tutorials/mcp/ - Tutorial oficial do Langchain4j sobre o uso do Model Context Protocol.
