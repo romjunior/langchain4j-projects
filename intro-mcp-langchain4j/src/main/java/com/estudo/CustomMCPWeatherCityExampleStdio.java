@@ -16,14 +16,14 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.List;
 
-public class CustomMCPWeatherCityExample {
+public class CustomMCPWeatherCityExampleStdio {
 
-    static final Logger log = LoggerFactory.getLogger(CustomMCPWeatherCityExample.class);
+    static final Logger log = LoggerFactory.getLogger(CustomMCPWeatherCityExampleStdio.class);
 
     interface Assistant {
 
         @SystemMessage("""
-                Você é um assistente que busca a temperatura dado uma cidade e você deve fazer isso e responder ao cliente de forma amigável
+                Você é um assistente do tempo, você deve pegar a cidade que foi passada, buscar a temperatura atual utilizando tools e retornar a resposta de forma direta e amigável
                 """)
         String chat(String text);
     }
@@ -59,7 +59,7 @@ public class CustomMCPWeatherCityExample {
             ChatLanguageModel model = OllamaChatModel.builder()
                     .baseUrl(baseUrl)
                     .modelName(modelName)
-                    .temperature(0.5)
+                    .temperature(0.1)
                     .logRequests(true)
                     .logResponses(true)
                     .build();
@@ -73,7 +73,7 @@ public class CustomMCPWeatherCityExample {
 
             log.info("starting chat");
 
-            String response = chat.chat("qual é a temperatura atual da cidade de Caieiras?");
+            String response = chat.chat("qual é a temperatura atual da cidade de Londres?");
             log.info("response={}", response);
         }
     }
