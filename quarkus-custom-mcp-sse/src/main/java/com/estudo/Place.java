@@ -1,4 +1,4 @@
 package com.estudo;
 
-public class Place {
+public record Place(String lat, String lon) {
 }
