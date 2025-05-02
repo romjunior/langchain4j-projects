@@ -4,6 +4,7 @@ import dev.langchain4j.mcp.McpToolProvider;
 import dev.langchain4j.mcp.client.DefaultMcpClient;
 import dev.langchain4j.mcp.client.McpClient;
 import dev.langchain4j.mcp.client.transport.McpTransport;
+import dev.langchain4j.mcp.client.transport.http.HttpMcpTransport;
 import dev.langchain4j.mcp.client.transport.stdio.StdioMcpTransport;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.ollama.OllamaChatModel;
@@ -34,10 +35,10 @@ public class CustomMCPWeatherCityExampleSse {
 
         log.info("staring MCP config with custom-mcp-weather example");
 
-        //do this to kill subprocess when the java process exits
-        try(McpTransport transport = new StdioMcpTransport.Builder()
-                .command(List.of("/home/junior/.asdf/program/asdf", "exec", "java", "-jar", "custom-mcp-weather-server-0.0.1.jar"))
-                .logEvents(true)
+        try(McpTransport transport = new HttpMcpTransport.Builder()
+                .sseUrl("http://localhost:8080/sse")
+                .logRequests(true)
+                .logResponses(true)
                 .build()) {
 
             log.info("starting MCP Client");
@@ -73,7 +74,7 @@ public class CustomMCPWeatherCityExampleSse {
 
             log.info("starting chat");
 
-            String response = chat.chat("qual é a temperatura atual da cidade de Londres?");
+            String response = chat.chat("qual é a temperatura atual da cidade de Franco da Rocha?");
             log.info("response={}", response);
         }
     }

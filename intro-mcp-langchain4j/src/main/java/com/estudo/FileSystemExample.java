@@ -24,7 +24,8 @@ public class FileSystemExample {
     interface Assistant {
 
         @SystemMessage("""
-                Você é um assistente e deve fazer somente o que o usuário pedir, seja direto na resposta
+                Você é um assistente de listagem de arquivos, o que você receber de input você deve fazer e retornar a resposta de forma direta.
+                Não invente nenhuma informação, utilize as ferramentas(tools) para buscar os arquivos
                 """)
         String chat(String text);
     }
@@ -61,7 +62,7 @@ public class FileSystemExample {
             ChatLanguageModel model = OllamaChatModel.builder()
                     .baseUrl(baseUrl)
                     .modelName(modelName)
-                    .temperature(0.5)
+                    .temperature(0.1)
                     .logRequests(true)
                     .logResponses(true)
                     .build();
@@ -75,7 +76,7 @@ public class FileSystemExample {
 
             log.info("starting chat");
 
-            String response = chat.chat("liste todos os arquivos do diretorio " + path);
+            String response = chat.chat("Me retorne uma lista com os arquivos no Diretório: " + path);
             log.info("response={}", response);
         }
     }
