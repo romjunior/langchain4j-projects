@@ -5,7 +5,6 @@ import dev.langchain4j.mcp.client.DefaultMcpClient;
 import dev.langchain4j.mcp.client.McpClient;
 import dev.langchain4j.mcp.client.transport.McpTransport;
 import dev.langchain4j.mcp.client.transport.http.HttpMcpTransport;
-import dev.langchain4j.mcp.client.transport.stdio.StdioMcpTransport;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.ollama.OllamaChatModel;
 import dev.langchain4j.service.AiServices;
@@ -74,7 +73,7 @@ public class CustomMCPWeatherCityExampleSse {
 
             log.info("starting chat");
 
-            String response = chat.chat("qual é a temperatura atual da cidade de Franco da Rocha?");
+            String response = chat.chat("qual é a temperatura atual da cidade de Nova Zelandia?");
             log.info("response={}", response);
         }
     }
