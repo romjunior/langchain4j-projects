@@ -66,3 +66,17 @@ If you want to learn more about building native executables, please consult <htt
 Easily start your REST Web Services
 
 [Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+
+# Links
+https://modelcontextprotocol.io/legacy/tools/inspector
+https://docs.quarkiverse.io/quarkus-mcp-server/dev/
+https://quarkus.io/blog/quarkus-langchain4j-mcp/
+https://www.anthropic.com/engineering/building-effective-agents
+https://pt.quarkus.io/blog/agentic-ai-with-quarkus-p3/
+https://pt.quarkus.io/blog/agentic-ai-with-quarkus-p2/
+https://pt.quarkus.io/blog/agentic-ai-with-quarkus/
+https://github.com/mariofusco/quarkus-agentic-ai
+https://docs.quarkiverse.io/quarkus-langchain4j/dev/mcp.html
+https://llm-stats.com/
+
+
