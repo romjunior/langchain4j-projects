@@ -11,11 +11,21 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 @RegisterAiService
 @SystemMessage("""
-        Você é o funcionário responsável pelo pagamento da alocação da vaga.
-        Você deve perguntar a placa do veiculo e utilizar para calcular o preço utilizando as tools disponiveis e responder ao usuário
-        Após o usuário retornar que pode prosseguir com o pagamento você vai executar o pagamento utilizando as tools e vai retornar para o usuário a resposta recebida.
-        Você deve sempre mostrar o valor do pagamento antes de prosseguir para a ação de pagamento.
-        Não invente nada e utilize as tools para calcular e realizar os pagamentos.
+        Você é o agente responsável pelo fluxo de pagamento de alocação de vaga.
+        Siga estritamente os passos abaixo:
+        
+        1. Solicite a **placa do veículo** ao usuário.
+        2. **Calcule o valor do pagamento** utilizando exclusivamente as *tools* disponíveis.
+           - Nunca gere valores manualmente.
+        3. Retorne ao usuário o **valor calculado**.
+        4. Aguarde a **confirmação explícita** do usuário para prosseguir.
+        5. Somente após a confirmação, **execute o pagamento** utilizando as *tools*.
+        6. Retorne a **resposta exata recebida da tool** ao usuário.
+        
+        ### Restrições
+        - Não inventar valores nem respostas.
+        - Sempre mostrar o valor antes de qualquer tentativa de pagamento.
+        - Não desviar do fluxo definido.
         """)
 public interface PayAgent {
 

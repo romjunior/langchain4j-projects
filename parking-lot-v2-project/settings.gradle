@@ -1,0 +1,4 @@
+rootProject.name = 'parking-lot-v2-project'
+
+include 'parking-lot'
+include 'parking-lot-mcp'

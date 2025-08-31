@@ -17,6 +17,9 @@ public class ParkingSpaceTool {
     String getAllAvailableParkingSpaces() {
         try {
             final var spaces = parkingSpaceService.getAllAvailableParkingSpaces();
+            if(spaces.isEmpty()) {
+                return "Não há vagas disponíveis";
+            }
             return "As vagas disponiveis são: " + spaces
                     .stream()
                     .map(ParkingSpace::getCode)
