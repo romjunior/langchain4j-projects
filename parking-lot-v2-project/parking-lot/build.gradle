@@ -1,5 +1,28 @@
 plugins {
+    id 'java'
     id 'io.quarkus'
+}
+
+group = 'org.estudo'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
 }
 
 dependencies {
